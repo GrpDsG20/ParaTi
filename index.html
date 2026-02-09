@@ -243,15 +243,10 @@
             el 14 de febrero.</p>
     </div>
 
-<div id="video-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 2000;">
-    <iframe id="miVideoDrive" 
-            src="https://drive.google.com/uc?export=download&id=1quKFBG84w5ZJgTj8wj7zItI-sGzCBlMe" 
-            width="100%" 
-            height="100%" 
-            allow="autoplay" 
-            style="border: none;">
-    </iframe>
-</div>
+<div id="video-container" style="display: none; text-align: center; color: white; padding: 20px;">
+        <h1 style="text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">¡Preparando tu sorpresa en 4K! ❤️</h1>
+        <p>Tu video de 222MB se está descargando para que lo veas con la mejor calidad.</p>
+        <div class="loader"></div> </div>
 
     <script>
 
@@ -286,14 +281,19 @@
 
         // --- 2. FUNCIÓN DE VIDEO (MODIFICADA PARA BUCLE) ---
 function lanzarVideo() {
+    // 1. Ocultamos todo lo demás
     document.getElementById('card-contador').style.display = 'none';
     document.getElementById('main-card').style.display = 'none';
-    
-    const videoContainer = document.getElementById('video-container');
-    videoContainer.style.display = 'block';
-    
-    // Al ser un iframe de Drive, no podemos forzar el bucle o el play automático por código
-    // Ella solo tendrá que presionar el icono de reproducción en su Honor
+
+    // 2. Creamos un mensaje de "Cargando" para que ella sepa que está pasando algo
+    const mensajeCarga = document.createElement('div');
+    mensajeCarga.style.cssText = "color: white; text-align: center; margin-top: 50px; font-family: sans-serif;";
+    mensajeCarga.innerHTML = "<h1>¡Preparando tu sorpresa en 4K! ❤️</h1><p>El video se está descargando para que lo veas con la mejor calidad...</p>";
+    document.body.appendChild(mensajeCarga);
+
+    // 3. Disparamos la descarga automática
+    const linkDescarga = "https://drive.google.com/uc?export=download&id=1quKFBG84w5ZJgTj8wj7zItI-sGzCBlMe";
+    window.location.href = linkDescarga;
 }
 
 
