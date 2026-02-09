@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para TI ❤️</title>
+    <title>Para TI</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
@@ -23,8 +24,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Compatibilidad */
-            min-height: 100dvh; /* El truco para centrar en celulares */
+            min-height: 100vh;
+            /* Compatibilidad */
+            min-height: 100dvh;
+            /* El truco para centrar en celulares */
             background: var(--degradado);
             background-size: 400% 400%;
             animation: gradientBG 10s ease infinite;
@@ -194,23 +197,28 @@
 
 
         @media screen and (max-width: 480px) {
-             h2 {
-            font-size:1.1rem;
+            h2 {
+                font-size: 1.1rem;
 
-        }
-        p{
-            font-size:1rem;
-        }
-        .card {
-        padding: 1.5rem; /* Un poco menos de espacio interno */
-        gap: 0.7rem;    /* Elementos más compactos */
-    }
-    .img-container {
-        height: 28vh;   /* Bajamos la altura de la imagen para que no empuje todo abajo */
-        min-height: 180px;
-    }
-        }
+            }
 
+            p {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+                /* Un poco menos de espacio interno */
+                gap: 0.7rem;
+                /* Elementos más compactos */
+            }
+
+            .img-container {
+                height: 28vh;
+                /* Bajamos la altura de la imagen para que no empuje todo abajo */
+                min-height: 180px;
+            }
+        }
     </style>
 </head>
 
@@ -220,7 +228,7 @@
         <div class="img-container">
             <img id="gato-img" src="img/1.png">
         </div>
-        <h2 id="pregunta">¿Quieres ser mi San Valentín? 👉👈</h2>
+        <h2 id="pregunta">¿Quieres ser mi San Valentín?</h2>
         <p id="mensaje">Prometo hacerte muy feliz ❤️</p>
 
         <div class="buttons">
@@ -243,12 +251,15 @@
             el 14 de febrero.</p>
     </div>
 
-<div id="video-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 2000;">
-    <video id="miVideo" playsinline controls style="width: 100%; height: 100%; object-fit: contain;">
-        <source src="https://www.dropbox.com/scl/fi/hiykq7axv4tz0sa4swg1g/you.mp4?rlkey=wgvy1txn725f4gthwvmddctni&st=vnc0dwca&raw=1" type="video/mp4">
-        Tu navegador no soporta video.
-    </video>
-</div>
+    <div id="video-container"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 2000;">
+        <video id="miVideo" playsinline controls style="width: 100%; height: 100%; object-fit: contain;">
+            <source
+                src="https://www.dropbox.com/scl/fi/hiykq7axv4tz0sa4swg1g/you.mp4?rlkey=wgvy1txn725f4gthwvmddctni&st=vnc0dwca&raw=1"
+                type="video/mp4">
+            Tu navegador no soporta video.
+        </video>
+    </div>
 
     <script>
 
@@ -277,23 +288,23 @@
         const textosH2 = ["¿Estás segura? 💔", "¡No me hagas esto! 😭", "¡Tocará a las malas! 😠"];
         const textosP = ["No seas así :c", "Te compraré flores y KFC...", " "];
 
-        const fechaEstreno = new Date("February 09, 2026 02:47:00").getTime();
+        const fechaEstreno = new Date("February 14, 2026 00:00:00").getTime();
 
 
 
-        // --- 2. FUNCIÓN DE VIDEO (MODIFICADA PARA BUCLE) ---
-function lanzarVideo() {
-    document.getElementById('card-contador').style.display = 'none';
-    document.getElementById('main-card').style.display = 'none';
-    
-    const container = document.getElementById('video-container');
-    container.style.display = 'block';
-    
-    const video = document.getElementById('miVideo');
-    video.play().catch(error => {
-        console.log("El navegador requiere interacción manual para el audio.");
-    });
-}
+        // --- 2. FUNCIÓN DE VIDEO---
+        function lanzarVideo() {
+            document.getElementById('card-contador').style.display = 'none';
+            document.getElementById('main-card').style.display = 'none';
+
+            const container = document.getElementById('video-container');
+            container.style.display = 'block';
+
+            const video = document.getElementById('miVideo');
+            video.play().catch(error => {
+                console.log("El navegador requiere interacción manual para el audio.");
+            });
+        }
 
 
 
