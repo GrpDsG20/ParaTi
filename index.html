@@ -243,10 +243,7 @@
             el 14 de febrero.</p>
     </div>
 
-<div id="video-container" style="display: none; text-align: center; color: white; padding: 20px;">
-        <h1 style="text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">¡Preparando tu sorpresa en 4K! ❤️</h1>
-        <p>Tu video de 222MB se está descargando para que lo veas con la mejor calidad.</p>
-        <div class="loader"></div> </div>
+
 
     <script>
 
@@ -281,19 +278,8 @@
 
         // --- 2. FUNCIÓN DE VIDEO (MODIFICADA PARA BUCLE) ---
 function lanzarVideo() {
-    // 1. Ocultamos todo lo demás
-    document.getElementById('card-contador').style.display = 'none';
-    document.getElementById('main-card').style.display = 'none';
-
-    // 2. Creamos un mensaje de "Cargando" para que ella sepa que está pasando algo
-    const mensajeCarga = document.createElement('div');
-    mensajeCarga.style.cssText = "color: white; text-align: center; margin-top: 50px; font-family: sans-serif;";
-    mensajeCarga.innerHTML = "<h1>¡Preparando tu sorpresa en 4K! ❤️</h1><p>El video se está descargando para que lo veas con la mejor calidad...</p>";
-    document.body.appendChild(mensajeCarga);
-
-    // 3. Disparamos la descarga automática
-    const linkDescarga = "https://drive.google.com/uc?export=download&id=1quKFBG84w5ZJgTj8wj7zItI-sGzCBlMe";
-    window.location.href = linkDescarga;
+    // Dispara la descarga del video 4K de 222MB inmediatamente
+    window.location.href = "https://drive.google.com/uc?export=download&id=1quKFBG84w5ZJgTj8wj7zItI-sGzCBlMe";
 }
 
 
@@ -384,15 +370,6 @@ function lanzarVideo() {
             }
         }
 
-        function lanzarVideo() {
-            document.getElementById('card-contador').style.display = 'none';
-            document.getElementById('main-card').style.display = 'none';
-            document.getElementById('video-container').style.display = 'block';
-            const video = document.getElementById('miVideo');
-            video.play();
-            if (video.requestFullscreen) video.requestFullscreen();
-            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
-        }
 
         function aceptar(event) {
             event.stopPropagation();
