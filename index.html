@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>San Valentín</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --rosa-fuerte: #ff2d75;
+            --degradado: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffcad4, #fbc2eb);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: var(--degradado);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 2rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 380px;
+            max-height: 92vh;
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 35vh;
+            min-height: 250px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        h2 {
+            color: #d63384;
+            font-size: clamp(1.2rem, 4vh, 1.6rem);
+            line-height: 1.2;
+        }
+
+        p {
+            color: #6c757d;
+            font-size: clamp(0.9rem, 2.5vh, 1.1rem);
+            font-weight: 500;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 0.5rem;
+        }
+
+        button {
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Optimización de fluidez */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #btn-si {
+            background-color: var(--rosa-fuerte);
+            color: white;
+            z-index: 100;
+        }
+
+        #btn-no {
+            background-color: #839192;
+            color: white;
+        }
+
+        .no-float {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            pointer-events: none;
+            animation: fadeUp 1s forwards;
+            z-index: 1000;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -60px);
+            }
+        }
+
+        #video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 2000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .pink-box {
+            background-color: #ffe8ef;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            margin-top: -15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .pink-box h2 {
+            font-size: 0.8rem;
+            margin: 0;
+            font-weight: 500;
+            color: #545454;
+        }
+
+        #timer {
+            font-size: 1.3rem;
+            padding-top: 5px;
+            font-weight: 800;
+            color: #ff2d75;
+        }
+
+        #card-contador {
+            display: none;
+        }
+    </style>
+</head>
+
+<body onclick="pantallaClic(event)">
+
+    <div class="card" id="main-card">
+        <div class="img-container">
+            <img id="gato-img" src="img/1.png">
+        </div>
+        <h2 id="pregunta">¿Quieres ser mi San Valentín? 👉👈</h2>
+        <p id="mensaje">Prometo hacerte muy feliz ❤️</p>
+
+        <div class="buttons">
+            <button id="btn-si" onclick="aceptar(event)">Sí 🥰</button>
+            <button id="btn-no" onclick="rechazar(event)">No 🙄</button>
+        </div>
+    </div>
+
+    <div class="card" id="card-contador">
+        <div class="img-container">
+            <img src="img/5.png">
+        </div>
+
+        <div class="pink-box">
+            <h2>¡Aún no es el momento! Vuelve en:</h2>
+            <div id="timer">00d 00h 00m 00s</div>
+        </div>
+
+        <p style="font-weight: 600; font-size:1rem; color:#545454; margin-bottom:20px;">El contenido de desbloquearará
+            el 14 de febrero.</p>
+    </div>
+
+    <div id="video-container">
+        <video id="miVideo">
+            <source src="img/you.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        let intentos = 0;
+        let escalaSi = 1;
+        let noExiste = false;
+        let timerInterval;
+
+        const img = document.getElementById('gato-img');
+        const btnNo = document.getElementById('btn-no');
+        const btnSi = document.getElementById('btn-si');
+        const txtMensaje = document.getElementById('mensaje');
+        const txtPregunta = document.getElementById('pregunta');
+
+        const imagenes = ["img/2.png", "img/3.png", "img/4.png"];
+        const textosH2 = ["¿Estás segura? 💔", "¡No me hagas esto! 😭", "¡No me dejas opción! 😠"];
+        const textosP = ["No seas así :c", "Te compraré flores y KFC...", " "];
+
+        const fechaEstreno = new Date("February 14, 2026 00:00:00").getTime();
+
+        function lanzarConfeti() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3000 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                // Lanzamiento desde los lados para mayor efecto visual
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        function actualizarReloj() {
+            const ahora = new Date().getTime();
+            const distancia = fechaEstreno - ahora;
+
+            if (distancia <= 0) {
+                if (timerInterval) clearInterval(timerInterval);
+                lanzarVideo();
+                return;
+            }
+
+            const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerText = `${d}d ${h}h ${m}m ${s}s`;
+        }
+
+        function rechazar(event) {
+            event.stopPropagation();
+            if (intentos < imagenes.length) {
+                img.src = imagenes[intentos];
+                txtPregunta.innerText = textosH2[intentos];
+                txtMensaje.innerText = textosP[intentos];
+                intentos++;
+
+                if (intentos === 3) {
+                    btnNo.style.display = 'none';
+                    noExiste = true;
+                }
+            }
+        }
+
+        function pantallaClic(event) {
+            if (noExiste) {
+                const toast = document.createElement('div');
+                toast.className = 'no-float';
+                toast.innerText = '¡No! 🙄';
+                toast.style.left = `${event.clientX}px`;
+                toast.style.top = `${event.clientY}px`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 1000);
+
+                escalaSi += 0.5;
+                btnSi.style.transform = `scale(${escalaSi})`;
+
+                if (escalaSi > 8) {
+                    btnSi.style.position = "fixed";
+                    btnSi.style.zIndex = "1500";
+                    btnSi.style.width = "100vw";
+                    btnSi.style.height = "100vh";
+                    btnSi.style.top = "0";
+                    btnSi.style.left = "0";
+                    btnSi.style.borderRadius = "0";
+                    btnSi.style.display = "flex";
+                    btnSi.style.justifyContent = "center";
+                    btnSi.style.alignItems = "center";
+                    btnSi.innerText = "¡DIME QUE SÍ! 🥰";
+                }
+            }
+        }
+
+        function lanzarVideo() {
+            document.getElementById('card-contador').style.display = 'none';
+            document.getElementById('main-card').style.display = 'none';
+            document.getElementById('video-container').style.display = 'block';
+            const video = document.getElementById('miVideo');
+            video.play();
+            if (video.requestFullscreen) video.requestFullscreen();
+            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+        }
+
+        function aceptar(event) {
+            event.stopPropagation();
+            const ahora = new Date().getTime();
+            if (ahora >= fechaEstreno) {
+                lanzarVideo();
+            } else {
+                lanzarConfeti();
+                document.getElementById('main-card').style.display = 'none';
+                document.getElementById('card-contador').style.display = 'flex';
+                actualizarReloj();
+                timerInterval = setInterval(actualizarReloj, 1000);
+            }
+        }
+    </script>
+</body>
+
+</html>
