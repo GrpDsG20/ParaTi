@@ -190,6 +190,16 @@
         #card-contador {
             display: none;
         }
+
+
+        @media screen and (max-width: 380px) {
+             h2 {
+            color: #d63384;
+            font-size: 1.5rem;
+
+        }
+        }
+
     </style>
 </head>
 
@@ -241,7 +251,7 @@
         const txtPregunta = document.getElementById('pregunta');
 
         const imagenes = ["img/2.png", "img/3.png", "img/4.png"];
-        const textosH2 = ["¿Estás segura? 💔", "¡No me hagas esto! 😭", "¡Tocará a las malas!"];
+        const textosH2 = ["¿Estás segura? 💔", "¡No me hagas esto! 😭", "¡Tocará a las malas! 😠"];
         const textosP = ["No seas así :c", "Te compraré flores y KFC...", " "];
 
         const fechaEstreno = new Date("February 14, 2026 00:00:00").getTime();
