@@ -244,10 +244,13 @@
     </div>
 
 <div id="video-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 2000;">
-    <video id="miVideo" playsinline loop style="width: 100%; height: 100%; object-fit: contain;">
-        <source src="https://1024terabox.com/s/1bsKTuMLIRgvLJbPs4802ug" type="video/mp4">
-        Tu navegador no soporta video.
-    </video>
+    <iframe id="miVideoDrive" 
+            src="https://drive.google.com/file/d/TU_ID_AQUI/preview" 
+            width="100%" 
+            height="100%" 
+            allow="autoplay" 
+            style="border: none;">
+    </iframe>
 </div>
 
     <script>
@@ -282,27 +285,16 @@
 
 
         // --- 2. FUNCIÓN DE VIDEO (MODIFICADA PARA BUCLE) ---
-    function lanzarVideo() {
-        document.getElementById('card-contador').style.display = 'none';
-        document.getElementById('main-card').style.display = 'none';
-        
-        const videoContainer = document.getElementById('video-container');
-        const video = document.getElementById('miVideo');
-        
-        videoContainer.style.display = 'block';
-        
-        // Configuraciones de bucle y reproducción automática
-        video.loop = true; // Activa el bucle
-        video.play().catch(error => {
-            console.log("Reproducción con audio bloqueada, intentando sin sonido...");
-            video.muted = true; // Los navegadores móviles exigen silencio para el autoplay
-            video.play();
-        });
-
-        // Pantalla completa automática
-        if (video.requestFullscreen) video.requestFullscreen();
-        else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
-    }
+function lanzarVideo() {
+    document.getElementById('card-contador').style.display = 'none';
+    document.getElementById('main-card').style.display = 'none';
+    
+    const videoContainer = document.getElementById('video-container');
+    videoContainer.style.display = 'block';
+    
+    // Al ser un iframe de Drive, no podemos forzar el bucle o el play automático por código
+    // Ella solo tendrá que presionar el icono de reproducción en su Honor
+}
 
 
 
