@@ -243,13 +243,25 @@
             el 14 de febrero.</p>
     </div>
 
-    <div id="video-container">
-        <video id="miVideo">
-            <source src="img/you.mp4" type="video/mp4">
-        </video>
-    </div>
+<div id="video-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 2000;">
+    <video id="miVideo" playsinline loop style="width: 100%; height: 100%; object-fit: contain;">
+        <source src="https://1024terabox.com/s/1bsKTuMLIRgvLJbPs4802ug" type="video/mp4">
+        Tu navegador no soporta video.
+    </video>
+</div>
 
     <script>
+
+        const precargaImagenes = () => {
+            const rutas = ["img/2.png", "img/3.png", "img/4.png", "img/5.png"];
+            rutas.forEach(ruta => {
+                const imagen = new Image();
+                imagen.src = ruta;
+            });
+        };
+        precargaImagenes();
+
+
         let intentos = 0;
         let escalaSi = 1;
         let noExiste = false;
@@ -265,7 +277,35 @@
         const textosH2 = ["¿Estás segura? 💔", "¡No me hagas esto! 😭", "¡Tocará a las malas! 😠"];
         const textosP = ["No seas así :c", "Te compraré flores y KFC...", " "];
 
-        const fechaEstreno = new Date("February 14, 2026 00:00:00").getTime();
+        const fechaEstreno = new Date("February 14, 2026 02:47:00").getTime();
+
+
+
+        // --- 2. FUNCIÓN DE VIDEO (MODIFICADA PARA BUCLE) ---
+    function lanzarVideo() {
+        document.getElementById('card-contador').style.display = 'none';
+        document.getElementById('main-card').style.display = 'none';
+        
+        const videoContainer = document.getElementById('video-container');
+        const video = document.getElementById('miVideo');
+        
+        videoContainer.style.display = 'block';
+        
+        // Configuraciones de bucle y reproducción automática
+        video.loop = true; // Activa el bucle
+        video.play().catch(error => {
+            console.log("Reproducción con audio bloqueada, intentando sin sonido...");
+            video.muted = true; // Los navegadores móviles exigen silencio para el autoplay
+            video.play();
+        });
+
+        // Pantalla completa automática
+        if (video.requestFullscreen) video.requestFullscreen();
+        else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+    }
+
+
+
 
         function lanzarConfeti() {
             const duration = 3 * 1000;
