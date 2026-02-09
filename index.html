@@ -23,7 +23,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Compatibilidad */
+            min-height: 100dvh; /* El truco para centrar en celulares */
             background: var(--degradado);
             background-size: 400% 400%;
             animation: gradientBG 10s ease infinite;
@@ -192,9 +193,8 @@
         }
 
 
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 480px) {
              h2 {
-            color: #d63384;
             font-size:1.1rem;
 
         }
